@@ -16,7 +16,7 @@ const TIMES = [
   { "04.03.2025": ["5:35", "18:21"] },
   { "05.03.2025": ["5:33", "18:21"] },
   { "06.03.2025": ["5:32", "18:02"] },
-  { "07.03.2025": ["5:30", "18:23"] },
+  { "07.03.2025": ["5:30", "18:24"] },
   { "08.03.2025": ["5:29", "18:25"] },
   { "09.03.2025": ["5:27", "18:26"] },
   { "10.03.2025": ["5:25", "18:27"] },
@@ -159,6 +159,7 @@ const CountdownPiP = () => {
   const [isRamazan, setisRamazan] = useState(true);
   const [activePIP, setActivePIP] = useState(false);
   const [loading, setLoading] = useState(false);
+  let nextRamadon = dayjs().diff(dayjs("2026.02.17"), "day");
 
   const claculateIftarTime = () => {
     const today = dayjs(new Date()).add(5, "hour").format("DD.MM.YYYY");
@@ -346,12 +347,54 @@ const CountdownPiP = () => {
   return (
     <div
       style={{
-        height: "90vh",
+        height: "100vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
       }}
     >
+      {isRamazan && (
+        <div
+          style={{
+            width: "100vw",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            position: "relative",
+            background: "#000",
+            color: "#fff",
+            height: "30px",
+            marginTop: "5px",
+            paddingTop: "5px",
+            marginBottom: "20px",
+          }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              whiteSpace: "nowrap",
+              position: "absolute",
+              animation: "scroll 20s linear infinite",
+            }}
+          >
+            Birodar! Ko'rsatilgan vaqtdan 3-4 daqiqa ehtiyotini oling! Ushbu
+            vaqt va boshqa taqvimlardagi vaqt bu hisob-kitob, ya'ni xatolik
+            bo'lishi mumkun.
+          </div>
+
+          <style>
+            {`
+          @keyframes scroll {
+            from {
+              transform: translateX(100%);
+            }
+            to {
+              transform: translateX(-100%);
+            }
+          }
+        `}
+          </style>
+        </div>
+      )}
       {loading ? (
         <div
           style={{
@@ -374,28 +417,30 @@ const CountdownPiP = () => {
       ) : (
         <></>
       )}
-      <div
-        style={{
-          width: "90vw",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "end",
-        }}
-      >
-        <Select
-          options={Object.keys(differRegionTime).map((a) => ({
-            label: a,
-            value: a,
-          }))}
-          value={{ value: region, label: region }}
-          // defaultValue={{ value: "Toshkent", label: "Toshkent" }}
-          onChange={(e) => {
-            setRegion(e?.value);
-            setLoading(true);
+      {isRamazan && (
+        <div
+          style={{
+            width: "90vw",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "end",
           }}
-          styles={customStyles}
-        />
-      </div>
+        >
+          <Select
+            options={Object.keys(differRegionTime).map((a) => ({
+              label: a,
+              value: a,
+            }))}
+            value={{ value: region, label: region }}
+            // defaultValue={{ value: "Toshkent", label: "Toshkent" }}
+            onChange={(e) => {
+              setRegion(e?.value);
+              setLoading(true);
+            }}
+            styles={customStyles}
+          />
+        </div>
+      )}
       <style>
         {`@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');`}
       </style>
@@ -412,72 +457,92 @@ const CountdownPiP = () => {
           height: "0px",
         }}
       ></video>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "0",
-          top: 0,
-          zIndex: -1,
-          display: "flex",
-          alignItems: "center",
-          // flexDirection: "column",
-          justifyContent: "center",
-          width: "100vw",
-        }}
-      >
-        <p
+      {isRamazan ? (
+        <div
           style={{
-            fontSize: "20px",
-            margin: "30px 10px 0 0",
+            position: "absolute",
+            bottom: "0",
+            top: 0,
+            zIndex: -1,
+            display: "flex",
+            alignItems: "center",
+            // flexDirection: "column",
+            justifyContent: "center",
+            width: "100vw",
           }}
         >
-          <span
+          <p
             style={{
               fontSize: "20px",
-              backgroundColor: "#fff",
-              color: "#000",
-              borderRadius: "10px",
-              padding: "5px 10px",
-              marginRight: "10px",
+              margin: "30px 10px 0 0",
             }}
           >
-            {isIftar ? "IFTOR" : "SAHARLIK"}
-          </span>
-          gacha
-        </p>
-        <p
-          style={{
-            fontFamily: "Orbitron",
-            fontSize: "70px",
-            margin: "0 20px",
-          }}
-        >
-          {count}
-        </p>
-        <p
+            <span
+              style={{
+                fontSize: "20px",
+                backgroundColor: "#fff",
+                color: "#000",
+                borderRadius: "10px",
+                padding: "5px 10px",
+                marginRight: "10px",
+              }}
+            >
+              {isIftar ? "IFTOR" : "SAHARLIK"}
+            </span>
+            gacha
+          </p>
+          <p
+            style={{
+              fontFamily: "Orbitron",
+              fontSize: "70px",
+              margin: "0 20px",
+            }}
+          >
+            {count}
+          </p>
+          <p
+            style={{
+              fontSize: "20px",
+              margin: "30px 50px 0 0",
+            }}
+          >
+            qoldi
+          </p>
+          {!activePIP ? (
+            <button onClick={handleStartPiP}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="currentColor"
+              >
+                <path d="M19 7H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 10H5V9h14v8zm-3-3h4v3h-4v-3z" />
+              </svg>
+            </button>
+          ) : (
+            <></>
+          )}
+        </div>
+      ) : (
+        <div
           style={{
             fontSize: "20px",
-            margin: "30px 50px 0 0",
+            marginTop: "35vh",
           }}
         >
-          qoldi
-        </p>
-        {!activePIP ? (
-          <button onClick={handleStartPiP}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              fill="currentColor"
-            >
-              <path d="M19 7H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 10H5V9h14v8zm-3-3h4v3h-4v-3z" />
-            </svg>
-          </button>
-        ) : (
-          <></>
-        )}
-      </div>
+          Ramazonga
+          <p
+            style={{
+              fontFamily: "Orbitron",
+              fontSize: "70px",
+              margin: "0 20px",
+            }}
+          >
+            {nextRamadon * -1}kun qoldi
+          </p>
+        </div>
+      )}
     </div>
   );
 };
