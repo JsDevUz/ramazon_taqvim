@@ -341,7 +341,9 @@ const CountdownPiP = () => {
     }, 1000);
     return () => clearTimeout(interval);
   });
-
+  function isMobile() {
+    return window.matchMedia("(max-width: 768px)").matches;
+  }
   return (
     <div
       style={{
@@ -497,6 +499,7 @@ const CountdownPiP = () => {
               fontFamily: "Orbitron",
               fontSize: "70px",
               margin: "0 20px",
+              // color: "#008cff",
             }}
           >
             {count}
@@ -507,7 +510,7 @@ const CountdownPiP = () => {
               margin: "30px 50px 0 0",
             }}
           ></p>
-          {!activePIP ? (
+          {!activePIP && !isMobile() ? (
             <button onClick={handleStartPiP}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
