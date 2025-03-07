@@ -163,7 +163,6 @@ const CountdownPiP = () => {
 
   const claculateIftarTime = () => {
     const today = dayjs(new Date()).add(5, "hour").format("DD.MM.YYYY");
-    console.log(today);
 
     const now = dayjs(new Date());
     const tomorrow = dayjs().add(1, "day").format("DD.MM.YYYY");
@@ -335,7 +334,6 @@ const CountdownPiP = () => {
   useEffect(() => {
     const interval = setTimeout(() => {
       claculateIftarTime();
-      console.log("f");
       if (!document.pictureInPictureElement) {
         setActivePIP(false);
       }
