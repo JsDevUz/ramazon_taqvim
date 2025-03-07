@@ -504,9 +504,7 @@ const CountdownPiP = () => {
               fontSize: "20px",
               margin: "30px 50px 0 0",
             }}
-          >
-            qoldi
-          </p>
+          ></p>
           {!activePIP ? (
             <button onClick={handleStartPiP}>
               <svg
