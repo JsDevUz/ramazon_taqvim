@@ -422,6 +422,7 @@ const CountdownPiP = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "end",
+            zIndex: 9999,
           }}
         >
           <Select
@@ -461,7 +462,6 @@ const CountdownPiP = () => {
             position: "absolute",
             bottom: "0",
             top: 0,
-            zIndex: -1,
             display: "flex",
             alignItems: "center",
             // flexDirection: "column",
