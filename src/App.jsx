@@ -403,10 +403,11 @@ const CountdownPiP = () => {
             justifyContent: "center",
             alignItems: "center",
             position: "absolute",
-            backgroundColor: "#0008",
+            backgroundColor: "#0009",
             zIndex: "999",
             top: 0,
             fontSize: "20px",
+            fontWeight: "800",
             right: 0,
           }}
         >
