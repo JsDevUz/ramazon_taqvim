@@ -467,6 +467,7 @@ const CountdownPiP = () => {
             alignItems: "center",
             // flexDirection: "column",
             flexWrap: "wrap",
+            alignContent: "center",
             justifyContent: "center",
             width: "100vw",
           }}
