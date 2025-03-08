@@ -26,7 +26,17 @@ const trHoverStyle = {
   backgroundColor: "#333",
 };
 
-const RamadanTimetable = ({ TIMES }) => {
+const RamadanTimetable = ({ TIMES, differRegionTime, selectedRegion }) => {
+  const adjustTime = (time, region) => {
+    const [hours, minutes] = time.split(":").map(Number);
+    const diff = differRegionTime[region] || 0; // Default to 0 if region not found
+    const totalMinutes = hours * 60 + minutes + diff;
+    const adjustedHours = Math.floor(totalMinutes / 60);
+    const adjustedMinutes = totalMinutes % 60;
+    return `${String(adjustedHours).padStart(2, "0")}:${String(
+      adjustedMinutes
+    ).padStart(2, "0")}`;
+  };
   return (
     <div
       style={{
@@ -51,7 +61,8 @@ const RamadanTimetable = ({ TIMES }) => {
         <tbody>
           {TIMES.map((entry, index) => {
             const date = Object.keys(entry)[0];
-            const [saharlik, iftar] = entry[date];
+            const saharlik = adjustTime(entry[date][0], selectedRegion);
+            const iftar = adjustTime(entry[date][1], selectedRegion);
             return (
               <tr key={index} style={index % 2 === 0 ? trHoverStyle : {}}>
                 <td style={thTdStyle}>{date}</td>

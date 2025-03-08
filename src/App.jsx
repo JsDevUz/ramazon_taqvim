@@ -533,7 +533,11 @@ const CountdownPiP = () => {
               maxHeight: "100vh",
             }}
           > */}
-          <RamadanTimetable TIMES={TIMES} />
+          <RamadanTimetable
+            TIMES={TIMES}
+            selectedRegion={region}
+            differRegionTime={differRegionTime}
+          />
           {/* </div> */}
         </div>
       ) : (
