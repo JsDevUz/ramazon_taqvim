@@ -6,6 +6,7 @@ import utc from "dayjs/plugin/utc";
 
 import timezone from "dayjs/plugin/timezone";
 import Select from "react-select";
+import RamadanTimetable from "./ramadantable";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(duration);
@@ -156,6 +157,9 @@ const CountdownPiP = () => {
   const [count, setCount] = useState(0);
   const [isIftar, setisIftar] = useState(true);
   const [region, setRegion] = useState("Toshkent");
+  const [todaysIftor, setTodaysIftor] = useState("00:00");
+  const [todaysSahar, setTodaysSahar] = useState("00:00");
+  const [tomorrowsSahar, setTomorrowsSahar] = useState("00:00");
   const [isRamazan, setisRamazan] = useState(true);
   const [activePIP, setActivePIP] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -176,6 +180,7 @@ const CountdownPiP = () => {
     const tomorrowsIftorTime = TIMES.find((t) => t[tomorrow]);
 
     const todays_iftor_hour_and_minut = todaysIftorTime[today][1].split(":");
+    const todays_sahar_hour_and_minut = todaysIftorTime[today][0].split(":");
 
     const tomorrows_sahar_hour_and_minut =
       tomorrowsIftorTime[tomorrow][0].split(":");
@@ -208,7 +213,19 @@ const CountdownPiP = () => {
       Math.abs(diff_tomorrows_sahar_seconds),
       "seconds"
     );
-
+    setTodaysIftor(
+      `${todays_iftor_hour_and_minut[0] + ":" + todays_iftor_hour_and_minut[1]}`
+    );
+    setTomorrowsSahar(
+      `${
+        tomorrows_sahar_hour_and_minut[0] +
+        ":" +
+        tomorrows_sahar_hour_and_minut[1]
+      }`
+    );
+    setTodaysSahar(
+      `${todays_sahar_hour_and_minut[0] + ":" + todays_sahar_hour_and_minut[1]}`
+    );
     if (difftodays_inftor_seconds < 0) {
       setisIftar(true);
       const result = `${String(abs_todays_inftor_duration.hours()).padStart(
@@ -272,9 +289,16 @@ const CountdownPiP = () => {
 
       // Draw Countdown Text
       ctx.fillStyle = "white";
-      ctx.font = "50px 'Orbitron', sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(`${count}`, canvas.width / 2, canvas.height / 2);
+      ctx.font = "30px 'Orbitron', sans-serif";
+
+      ctx.fillText(
+        `${isIftar ? "Iftorgacha" : "Saharlikgacha"}`,
+        canvas.width / 2,
+        canvas.height / 2
+      );
+      ctx.font = "50px 'Orbitron', sans-serif";
+      ctx.fillText(`${count}`, canvas.width / 2, canvas.height / 1.5);
 
       requestAnimationFrame(draw);
     };
@@ -383,6 +407,9 @@ const CountdownPiP = () => {
       {isRamazan && (
         <div
           style={{
+            position: "fixed",
+            left: 0,
+            top: 20,
             width: "90vw",
             display: "flex",
             alignItems: "center",
@@ -422,71 +449,92 @@ const CountdownPiP = () => {
         }}
       ></video>
       {isRamazan ? (
-        <div
-          style={{
-            position: "absolute",
-            bottom: "0",
-            top: 0,
-            display: "flex",
-            alignItems: "center",
-            // flexDirection: "column",
-            flexWrap: "wrap",
-            alignContent: "center",
-            justifyContent: "center",
-            width: "100vw",
-          }}
-        >
-          <p
+        <div>
+          <div
             style={{
-              fontSize: "20px",
-              margin: "30px 10px 0 0",
+              position: "fixed",
+              bottom: "0",
+              height: "400px",
+              top: 0,
+              left: 0,
+              backgroundColor: "#242424",
+              display: "flex",
+              alignItems: "center",
+              // flexDirection: "column",
+              flexWrap: "wrap",
+              alignContent: "center",
+              justifyContent: "center",
+              width: "100vw",
             }}
           >
-            <span
+            <p
               style={{
+                flexBasis: "100%",
+                textAlign: "center",
                 fontSize: "20px",
-                backgroundColor: "#fff",
-                color: "#000",
-                borderRadius: "10px",
-                padding: "5px 10px",
-                marginRight: "10px",
+                margin: "30px 10px 0 0",
               }}
             >
-              {isIftar ? "IFTOR" : "SAHARLIK"}
-            </span>
-            gacha
-          </p>
-          <p
-            style={{
-              fontFamily: "Orbitron",
-              fontSize: "70px",
-              margin: "0 20px",
-              // color: "#008cff",
-            }}
-          >
-            {count}
-          </p>
-          <p
-            style={{
-              fontSize: "20px",
-              margin: "30px 50px 0 0",
-            }}
-          ></p>
-          {!activePIP && !isMobile() ? (
-            <button onClick={handleStartPiP}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="24"
-                height="24"
-                fill="currentColor"
+              <span
+                style={{
+                  fontSize: "20px",
+                  backgroundColor: "#fff",
+                  color: "#000",
+                  borderRadius: "10px",
+                  padding: "5px 10px",
+                  marginRight: "10px",
+                }}
               >
-                <path d="M19 7H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 10H5V9h14v8zm-3-3h4v3h-4v-3z" />
-              </svg>
-            </button>
-          ) : (
-            <></>
-          )}
+                {isIftar ? "IFTOR" : "SAHARLIK"}
+              </span>
+              gacha
+            </p>
+            <p
+              style={{
+                fontFamily: "Orbitron",
+                fontSize: "70px",
+                margin: "0 20px",
+                // color: "#008cff",
+              }}
+            >
+              {count}
+            </p>
+
+            {!activePIP && !isMobile() ? (
+              <button
+                style={{
+                  position: "absolute",
+                  bottom: 20,
+                  right: 20,
+                }}
+                onClick={handleStartPiP}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                >
+                  <path d="M19 7H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 10H5V9h14v8zm-3-3h4v3h-4v-3z" />
+                </svg>
+              </button>
+            ) : (
+              <></>
+            )}
+          </div>
+          {/* <div
+            style={{
+              flexBasis: "100%",
+              display: "block",
+              margin: "auto",
+              textAlign: "center",
+              overflowY: "auto",
+              maxHeight: "100vh",
+            }}
+          > */}
+          <RamadanTimetable TIMES={TIMES} />
+          {/* </div> */}
         </div>
       ) : (
         <div
