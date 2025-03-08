@@ -45,7 +45,7 @@ const RamadanTimetable = ({ TIMES }) => {
           <tr>
             <th style={thStyle}>Sana</th>
             <th style={thStyle}>Saharlik</th>
-            <th style={thStyle}>Iftor</th>
+            <th style={thStyle}>Iftorlik</th>
           </tr>
         </thead>
         <tbody>
