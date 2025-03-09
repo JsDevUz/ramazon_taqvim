@@ -177,8 +177,6 @@ const CountdownPiP = () => {
 
     const todays_iftor_hour_and_minut = todaysIftorTime[today][1].split(":");
 
-    const tomorrows_iftor_hour_and_minut =
-      tomorrowsIftorTime[tomorrow][1].split(":");
     const tomorrows_sahar_hour_and_minut =
       tomorrowsIftorTime[tomorrow][0].split(":");
 
@@ -192,22 +190,13 @@ const CountdownPiP = () => {
 
     const tomorrows_sahar_targetTime = now
       .startOf("day")
+      .add(1, "day")
       .add(tomorrows_sahar_hour_and_minut[0], "hour")
       .add(tomorrows_sahar_hour_and_minut[1], "minute")
-      .add(differRegionTime[region] * -1, "minute");
-
-    const todays_iftor_targetTimeTomorrowiftor = now
-      .startOf("day")
-      .add(tomorrows_iftor_hour_and_minut[0], "hour")
-      .add(tomorrows_iftor_hour_and_minut[1], "minute")
       .add(differRegionTime[region], "minute");
 
     let diff_tomorrows_sahar_seconds = now.diff(
       tomorrows_sahar_targetTime,
-      "second"
-    );
-    let diff_tomorrows_iftor_seconds = now.diff(
-      todays_iftor_targetTimeTomorrowiftor,
       "second"
     );
 
@@ -219,10 +208,7 @@ const CountdownPiP = () => {
       Math.abs(diff_tomorrows_sahar_seconds),
       "seconds"
     );
-    const abs_todays_iftor_duration = dayjs.duration(
-      Math.abs(diff_tomorrows_iftor_seconds),
-      "seconds"
-    );
+
     if (difftodays_inftor_seconds < 0) {
       setisIftar(true);
       const result = `${String(abs_todays_inftor_duration.hours()).padStart(
@@ -235,29 +221,16 @@ const CountdownPiP = () => {
 
       setCount(result);
     } else {
-      if (diff_tomorrows_sahar_seconds < 0) {
-        setisIftar(false);
-        const result = `${String(abs_todays_sahar_duration.hours()).padStart(
-          2,
-          "0"
-        )}:${String(abs_todays_sahar_duration.minutes()).padStart(
-          2,
-          "0"
-        )}:${String(abs_todays_sahar_duration.seconds()).padStart(2, "0")}`;
+      setisIftar(false);
+      const result = `${String(abs_todays_sahar_duration.hours()).padStart(
+        2,
+        "0"
+      )}:${String(abs_todays_sahar_duration.minutes()).padStart(
+        2,
+        "0"
+      )}:${String(abs_todays_sahar_duration.seconds()).padStart(2, "0")}`;
 
-        setCount(result);
-      } else {
-        setisIftar(true);
-        const result = `${String(abs_todays_iftor_duration.hours()).padStart(
-          2,
-          "0"
-        )}:${String(abs_todays_iftor_duration.minutes()).padStart(
-          2,
-          "0"
-        )}:${String(abs_todays_iftor_duration.seconds()).padStart(2, "0")}`;
-
-        setCount(result);
-      }
+      setCount(result);
     }
   };
 
@@ -299,26 +272,15 @@ const CountdownPiP = () => {
 
       // Draw Countdown Text
       ctx.fillStyle = "white";
-      ctx.font = "50px 'Orbitron', sans-serif"; // Use Orbitron with fallback
+      ctx.font = "50px 'Orbitron', sans-serif";
       ctx.textAlign = "center";
       ctx.fillText(`${count}`, canvas.width / 2, canvas.height / 2);
 
-      requestAnimationFrame(draw); // Continuous redraw
+      requestAnimationFrame(draw);
     };
 
     draw();
-    // Countdown interval
-    // const interval = setInterval(() => {
-    //   setCountdown((prev) => {
-    //     if (prev <= 1) {
-    //       clearInterval(interval);
-    //       return 0;
-    //     }
-    //     return prev - 1;
-    //   });
-    // }, 1000);
-    // return () => clearInterval(interval); // Cleanup
-  }, [count]); // Depend on countdown to update text
+  }, [count]);
 
   const handleStartPiP = async () => {
     if (videoRef.current) {
