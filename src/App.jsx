@@ -348,7 +348,7 @@ const CountdownPiP = () => {
         setActivePIP(false);
       }
       setLoading(false);
-    }, 500);
+    }, 1000);
     return () => clearTimeout(interval);
   });
   function isMobile() {
