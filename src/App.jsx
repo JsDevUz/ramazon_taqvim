@@ -11,36 +11,35 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(duration);
 const TIMES = [
-  { "01.03.2025": ["5:40", "18:17"] },
-  { "02.03.2025": ["5:38", "18:18"] },
-  { "03.03.2025": ["5:37", "18:19"] },
-  { "04.03.2025": ["5:35", "18:21"] },
-  { "05.03.2025": ["5:33", "18:21"] },
-  { "06.03.2025": ["5:32", "18:22"] },
-  { "07.03.2025": ["5:30", "18:24"] },
-  { "08.03.2025": ["5:29", "18:25"] },
-  { "09.03.2025": ["5:27", "18:26"] },
-  { "10.03.2025": ["5:25", "18:27"] },
-  { "11.03.2025": ["5:24", "18:28"] },
-  { "12.03.2025": ["5:22", "18:29"] },
-  { "13.03.2025": ["5:20", "18:30"] },
-  { "14.03.2025": ["5:18", "18:32"] },
-  { "15.03.2025": ["5:17", "18:33"] },
-  { "16.03.2025": ["5:15", "18:34"] },
-  { "17.03.2025": ["5:13", "18:35"] },
-  { "18.03.2025": ["5:12", "18:36"] },
-  { "19.03.2025": ["5:10", "18:37"] },
-  { "20.03.2025": ["5:08", "18:38"] },
-  { "21.03.2025": ["5:06", "18:39"] },
-  { "22.03.2025": ["5:04", "18:40"] },
-  { "23.03.2025": ["5:03", "18:41"] },
-  { "24.03.2025": ["5:01", "18:42"] },
-  { "25.03.2025": ["4:59", "18:44"] },
-  { "26.03.2025": ["4:57", "18:45"] },
-  { "27.03.2025": ["4:55", "18:46"] },
-  { "28.03.2025": ["4:54", "18:47"] },
-  { "29.03.2025": ["4:52", "18:48"] },
-  { "30.03.2025": ["4:50", "18:49"] },
+  { "19.02.2026": ["05:54", "18:03"] },
+  { "20.02.2026": ["05:53", "18:04"] },
+  { "21.02.2026": ["05:52", "18:06"] },
+  { "22.02.2026": ["05:50", "18:07"] },
+  { "23.02.2026": ["05:49", "18:08"] },
+  { "24.02.2026": ["05:47", "18:09"] },
+  { "25.02.2026": ["05:46", "18:10"] },
+  { "26.02.2026": ["05:45", "18:12"] },
+  { "27.02.2026": ["05:43", "18:13"] },
+  { "28.02.2026": ["05:42", "18:14"] },
+  { "01.03.2026": ["05:40", "18:15"] },
+  { "02.03.2026": ["05:39", "18:16"] },
+  { "03.03.2026": ["05:37", "18:17"] },
+  { "04.03.2026": ["05:35", "18:19"] },
+  { "05.03.2026": ["05:34", "18:20"] },
+  { "06.03.2026": ["05:32", "18:21"] },
+  { "07.03.2026": ["05:31", "18:22"] },
+  { "08.03.2026": ["05:29", "18:23"] },
+  { "09.03.2026": ["05:27", "18:24"] },
+  { "10.03.2026": ["05:26", "18:25"] },
+  { "11.03.2026": ["05:24", "18:27"] },
+  { "12.03.2026": ["05:22", "18:28"] },
+  { "13.03.2026": ["05:21", "18:29"] },
+  { "14.03.2026": ["05:19", "18:30"] },
+  { "15.03.2026": ["05:17", "18:31"] },
+  { "16.03.2026": ["05:15", "18:32"] },
+  { "17.03.2026": ["05:14", "18:33"] },
+  { "18.03.2026": ["05:12", "18:34"] },
+  { "19.03.2026": ["05:10", "18:35"] },
 ];
 const differRegionTime = {
   Angren: -4,
@@ -140,13 +139,13 @@ const customStyles = {
     backgroundColor: state.isSelected
       ? "#1a1a1a"
       : state.isFocused
-      ? "black" // <-- Set hover color to white
-      : "white",
+        ? "black" // <-- Set hover color to white
+        : "white",
     color: state.isSelected
       ? "#fff"
       : state.isFocused
-      ? "#fff" // <-- Set hover color to white
-      : "#000",
+        ? "#fff" // <-- Set hover color to white
+        : "#000",
     cursor: "pointer",
   }),
 };
@@ -163,7 +162,7 @@ const CountdownPiP = () => {
   const [isRamazan, setisRamazan] = useState(true);
   const [activePIP, setActivePIP] = useState(false);
   const [loading, setLoading] = useState(false);
-  let nextRamadon = dayjs().diff(dayjs("2026.02.17"), "day");
+  let nextRamadon = dayjs().diff(dayjs("2026.02.19"), "day");
 
   const claculateIftarTime = () => {
     const today = dayjs(new Date()).add(5, "hour").format("DD.MM.YYYY");
@@ -208,35 +207,35 @@ const CountdownPiP = () => {
 
     let diff_tomorrows_sahar_seconds = now.diff(
       tomorrows_sahar_targetTime,
-      "second"
+      "second",
     );
 
     let diff_todayss_sahar_seconds = now.diff(
       todays_sahar_targetTime,
-      "second"
+      "second",
     );
 
     const abs_todays_inftor_duration = dayjs.duration(
       Math.abs(difftodays_inftor_seconds),
-      "seconds"
+      "seconds",
     );
     const abs_tomorrows_sahar_duration = dayjs.duration(
       Math.abs(diff_tomorrows_sahar_seconds),
-      "seconds"
+      "seconds",
     );
     const abs_todays_sahar_duration = dayjs.duration(
       Math.abs(diff_todayss_sahar_seconds),
-      "seconds"
+      "seconds",
     );
     setTodaysIftor(
-      `${todays_iftor_hour_and_minut[0] + ":" + todays_iftor_hour_and_minut[1]}`
+      `${todays_iftor_hour_and_minut[0] + ":" + todays_iftor_hour_and_minut[1]}`,
     );
     setTomorrowsSahar(
       `${
         tomorrows_sahar_hour_and_minut[0] +
         ":" +
         tomorrows_sahar_hour_and_minut[1]
-      }`
+      }`,
     );
 
     if (difftodays_inftor_seconds < 0) {
@@ -244,20 +243,20 @@ const CountdownPiP = () => {
         setisIftar(false);
         const result = `${String(abs_todays_sahar_duration.hours()).padStart(
           2,
-          "0"
+          "0",
         )}:${String(abs_todays_sahar_duration.minutes()).padStart(
           2,
-          "0"
+          "0",
         )}:${String(abs_todays_sahar_duration.seconds()).padStart(2, "0")}`;
         setCount(result);
       } else {
         setisIftar(true);
         const result = `${String(abs_todays_inftor_duration.hours()).padStart(
           2,
-          "0"
+          "0",
         )}:${String(abs_todays_inftor_duration.minutes()).padStart(
           2,
-          "0"
+          "0",
         )}:${String(abs_todays_inftor_duration.seconds()).padStart(2, "0")}`;
         setCount(result);
       }
@@ -265,10 +264,10 @@ const CountdownPiP = () => {
       setisIftar(false);
       const result = `${String(abs_tomorrows_sahar_duration.hours()).padStart(
         2,
-        "0"
+        "0",
       )}:${String(abs_tomorrows_sahar_duration.minutes()).padStart(
         2,
-        "0"
+        "0",
       )}:${String(abs_tomorrows_sahar_duration.seconds()).padStart(2, "0")}`;
 
       setCount(result);
@@ -280,7 +279,7 @@ const CountdownPiP = () => {
     const loadFont = async () => {
       const font = new FontFace(
         "Orbitron",
-        "url(https://fonts.googleapis.com/css2?family=Orbitron&display=swap)"
+        "url(https://fonts.googleapis.com/css2?family=Orbitron&display=swap)",
       );
       await font.load();
       document.fonts.add(font);
@@ -319,7 +318,7 @@ const CountdownPiP = () => {
       ctx.fillText(
         `${isIftar ? "Iftorgacha" : "Saharlikgacha"}`,
         canvas.width / 2,
-        canvas.height / 2
+        canvas.height / 2,
       );
       ctx.font = "50px 'Orbitron', sans-serif";
       ctx.fillText(`${count}`, canvas.width / 2, canvas.height / 1.5);
@@ -574,6 +573,11 @@ const CountdownPiP = () => {
           style={{
             fontSize: "20px",
             marginTop: "35vh",
+            width: "100vw",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           Ramazonga
@@ -584,7 +588,7 @@ const CountdownPiP = () => {
               margin: "0 20px",
             }}
           >
-            {nextRamadon * -1}kun qoldi
+            {nextRamadon * -1} kun qoldi
           </p>
         </div>
       )}
